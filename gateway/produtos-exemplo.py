@@ -1,5 +1,3 @@
-# https://kinsta.com/blog/python-microservices/
-
 import requests
 import os
 from flask import Flask, jsonify
