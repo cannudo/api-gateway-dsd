@@ -16,3 +16,16 @@ pip install -r requirements.txt
 
 cd gateway/
 flask --app produtos-exemplo run
+
+### Testando serializers
+python manage.py shell
+from etiqueta.models import Etiqueta
+from etiqueta.serializers import EtiquetaSerializer
+from etiqueta.serializers import EtiquetaSerializer
+titulo = "Teste do serializer"
+descricao = "Testando se o serializer vai funcionar"
+instancia = Etiqueta(titulo = titulo, descricao = descricao)
+instancia.save()
+serializado = EtiquetaSerializer(instancia)
+serializado.data
+> {'id': 1, 'titulo': 'Teste do serializer', 'descricao': 'Testando se o serializer vai funcionar'}
