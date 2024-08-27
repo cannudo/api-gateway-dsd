@@ -4,9 +4,11 @@ from .models import Etiqueta
 
 class EtiquetaSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only = True)
-    titulo= serializers.CharField(max_length=25)
+    titulo = serializers.CharField(max_length=25)
     descricao = serializers.CharField(max_length=75)   
 
+
+    # TÁ ESTRANHO, REVISAR
     def create(self, validated_data):
         return Etiqueta.objects.create(**validated_data)
     
@@ -15,6 +17,11 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ['url', 'username', 'email', 'groups']
 
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ['url', 'username', 'email', 'groups']
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
