@@ -15,6 +15,11 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -26,6 +31,7 @@ SECRET_KEY = "django-insecure-l4b_c=y+w3grh!8z^@b*6c7qvqk1o@des27j2^k7%e_vs&ipm8
 DEBUG = True
 
 ALLOWED_HOSTS = []
+CSRF_TRUSTED_ORIGINS = ['https://localhost:8000']
 
 
 # Application definition
@@ -37,6 +43,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "tarefa",
 ]
 
 MIDDLEWARE = [
@@ -77,8 +85,15 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+    "etiqueta_db": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "etiqueta_db.sqlite3",
+    }
     }
 }
+
+# DATABASE_ROUTERS = ['api-gateway-dsd/microsservicos/tarefas/tarefa/routers.py', 'microsservicos/etiquetas/tiqueta/routers.py']
+
 
 
 # Password validation
