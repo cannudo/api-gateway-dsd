@@ -85,8 +85,15 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+    "etiqueta_db": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "etiqueta_db.sqlite3",
+    }
     }
 }
+
+# DATABASE_ROUTERS = ['api-gateway-dsd/microsservicos/tarefas/tarefa/routers.py', 'microsservicos/etiquetas/tiqueta/routers.py']
+
 
 
 # Password validation
