@@ -7,6 +7,5 @@ router.register(r'etiquetas', views.EtiquetaViewSet)
 
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path("etiquetasfalha/", include('etiqueta.urls')),  # DELETAR
     path('', include(router.urls)),
 ]
