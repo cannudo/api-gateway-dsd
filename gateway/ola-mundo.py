@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -8,7 +8,8 @@ def ola_mundo():
     Isto é: execute a função ola_mundo() quando o Flask detectar uma requisição para a rota /
     '''
     #return "<h1>Olá, mundo!</h1>"
-    return {"etiquetas": "http://localhost:5000/etiquetas/"} # Python converte isso para um JSON
+    retorno = jsonify({"etiquetas": "http://localhost:5000/etiquetas/"})
+    return retorno # uma camada de garantia para que retorne JSON com mymetype application/json
 
 @app.route("/etiquetas/")
 def listar_etiquetas():
