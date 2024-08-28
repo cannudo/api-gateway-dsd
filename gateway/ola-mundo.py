@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -17,3 +17,12 @@ def listar_etiquetas():
 def detalhar_etiqueta(id_da_etiqueta):
     return f"Etiqueta #{id_da_etiqueta}"
 
+@app.route("/metodo/", methods = ["GET", "POST"])
+def testar_metodo():
+    if request.method == "GET":
+        retorno = "Veio um GET"
+    elif request.method == "POST":
+        retorno = "Veio um post"
+    else: # a requisição nunca chega nesse else, porque outros métodos retornam 405 automaticamente
+        retorno = "Veio outro método"
+    return retorno
