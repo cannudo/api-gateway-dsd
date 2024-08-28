@@ -30,8 +30,12 @@ SECRET_KEY = "django-insecure-$35%px$0$4b_2!kpo@83!$i1qp=a1_(l7j1^yc$zlf0l!%!y#m
 DEBUG = True
 
 ALLOWED_HOSTS = []
-CSRF_TRUSTED_ORIGINS = ['https://localhost:8000']
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://localhost:8000',
+    'https://localhost:8085',
+    'https://probable-space-memory-gx7x65j6p7j3vq4q-8000.app.github.dev/', # deixar porque pode ser que dê merda
+    'https://fantastic-yodel-4qwq6g56p9p3q567-8085.app.github.dev/',
+]
 # Application definition
 
 INSTALLED_APPS = [

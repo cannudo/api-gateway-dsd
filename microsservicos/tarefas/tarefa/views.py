@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from models import Tarefa
+from .models import Tarefa
 from rest_framework import permissions, viewsets
+from .serializers import TarefaSerializer
 
 class TarefaViewSet(viewsets.ModelViewSet):
     queryset = Tarefa.objects.all()
