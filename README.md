@@ -18,6 +18,9 @@ cd gateway/
 flask --app produtos-exemplo run
 
 ### Testando serializers
+
+> Caminho: /microsservicos/etiquetas
+
 python manage.py shell
 
 from etiqueta.models import Etiqueta
@@ -53,3 +56,21 @@ resposta = requests.get(url + '/etiquetas/?format=json')
 resposta.text
 
 > '{"count":2,"next":null,"previous":null,"results":[{"id":1,"titulo":"Teste do serializer","descricao":"Testando se o serializer vai funcionar"},{"id":2,"titulo":"Teste do serializer","descricao":"Testando se o serializer vai funcionar"}]}'
+
+### Rodar API de etiquetas
+
+> Caminho: /microsservicos/etiquetas/
+
+python3 manage.py migrate
+
+python3 manage.py runserver 8000
+
+### Rodar API de tarefas
+
+> Caminho: /microsservicos/tarefas/
+
+python3 manage.py makemigrations
+
+python3 manage.py migrate
+
+python3 manage.py runserver 8085
