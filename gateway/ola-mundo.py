@@ -1,41 +1,35 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
+import requests
+
+API_ETIQUETAS = "https://friendly-spoon-6v4vwrqwp5g27j6-8000.app.github.dev/"
 
 app = Flask(__name__)
 
-@app.route("/")
-def ola_mundo():
-    '''
-    Isto é: execute a função ola_mundo() quando o Flask detectar uma requisição para a rota /
-    '''
-    #return "<h1>Olá, mundo!</h1>"
-    retorno = jsonify({"etiquetas": "http://localhost:5000/etiquetas/"})
-    return retorno # uma camada de garantia para que retorne JSON com mymetype application/json
+def api_online():
+    try:
+        response = requests.get(API_ETIQUETAS)
+        response.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        return False
+    return True
 
-@app.route("/etiquetas/")
-def listar_etiquetas():
-    return "OK"
-
-@app.route("/etiquetas/<int:id_da_etiqueta>/")
-def detalhar_etiqueta(id_da_etiqueta):
-    return f"Etiqueta #{id_da_etiqueta}"
-
-@app.route("/metodo/", methods = ["GET", "POST"])
-def testar_metodo():
+@app.route("/etiquetas/", methods = ["GET", "POST"])
+def listar_tarefas():
+    if not api_online():
+        return Response("API offline", status=502)
     if request.method == "GET":
-        retorno = "Veio um GET"
-    elif request.method == "POST":
-        try:
-            teste = request.form['atributo_da_requisicao'] # só vai ter alguma coisa se for passado como form-data (só consegui com postman)
-        except KeyError:
-            teste = None
-        retorno = f"Veio um post ({teste})"
-    else: # a requisição nunca chega nesse else, porque outros métodos retornam 405 automaticamente
-        retorno = "Veio outro método"
-    return retorno
-
-@app.put("/metodos/")
-def testar_put():
-    retorno = "PUT funcionou"
-    if request.method != "PUT":
-        retorno = "Será que um GET cai aqui?" # Não. Retorna 405 automaticamente
-    return retorno
+        resposta = requests.get(API_ETIQUETAS + "etiquetas/")
+        return Response(resposta.json(), status = 200)
+    if request.method == "POST":
+        titulo = request.json.get("titulo")
+        descricao = request.json.get("descricao")
+        if not titulo or not descricao: # TESTAR PQ QUE DÁ 400 E N RETORNA ESSE JSONIFY
+            resposta = jsonify(
+                {"error": "Dados insuficientes"}
+            )
+            return Response(resposta, status = 400)
+        resposta = requests.post(
+            API_ETIQUETAS + "etiquetas/",
+            json={"titulo": titulo, "descricao": descricao}
+        )
+        return Response(resposta.text, status = 201)

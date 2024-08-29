@@ -8,4 +8,4 @@ from django.views.decorators.csrf import csrf_exempt
 class EtiquetaViewSet(viewsets.ModelViewSet):
     queryset = Etiqueta.objects.all()
     serializer_class = EtiquetaSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.AllowAny]
