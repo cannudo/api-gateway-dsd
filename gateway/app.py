@@ -16,7 +16,13 @@ def api_online(url):
 
 @app.get("/")
 def root():
-    return jsonify({"etiquetas": "http://localhost:5000/etiquetas/"}), 200
+    return jsonify({
+        "_links": {
+            "self": {"href": "http://localhost:5000/"},
+            "etiquetas": {"href": "http://localhost:5000/etiquetas/"},
+            "tarefas": {"href": "http://localhost:5000/tarefas/"}
+        }
+    }), 200
 
 @app.route("/etiquetas/", methods = ["GET", "POST"])
 def listar_etiquetas():
