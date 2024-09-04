@@ -1,10 +1,13 @@
 from flask import Flask, request, jsonify, Response
 import requests
+from flask_cors import CORS, cross_origin
 
-API_ETIQUETAS = "http://localhost:8000/"
-API_TAREFAS = "http://localhost:8085/"
+API_ETIQUETAS = "https://didactic-fortnight-p7p79g49w5wh7xv6-8000.app.github.dev/"
+API_TAREFAS = "https://didactic-fortnight-p7p79g49w5wh7xv6-8085.app.github.dev/"
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config["CORS_HEADERS"] = "Content-Type"
 
 def api_online(url):
     try:
@@ -25,6 +28,7 @@ def root():
     }), 200
 
 @app.route("/etiquetas/", methods = ["GET", "POST"])
+@cross_origin()
 def listar_etiquetas():
     if not api_online(API_ETIQUETAS):
         return Response("API offline", status=502)
@@ -46,6 +50,7 @@ def listar_etiquetas():
         return Response(resposta.text, status = 201)
     
 @app.route("/etiquetas/<int:id_da_etiqueta>/", methods = ["GET", "PUT", "DELETE"])
+@cross_origin()
 def detalhar_etiqueta(id_da_etiqueta):
     print(f"Detalhando etiqueta {id_da_etiqueta}")
     if not api_online(API_ETIQUETAS):
@@ -77,6 +82,7 @@ def detalhar_etiqueta(id_da_etiqueta):
     
 
 @app.route("/tarefas/", methods = ["GET", "POST"])
+@cross_origin()
 def listar_tarefas():
     if not api_online(API_TAREFAS):
         return Response("API offline", status=502)
@@ -101,6 +107,7 @@ def listar_tarefas():
         return Response(resposta.text, status = 201)
     
 @app.route("/tarefas/<int:id_da_tarefa>/", methods = ["GET", "PUT", "DELETE"])
+@cross_origin()
 def detalhar_tarefa(id_da_tarefa):
     if not api_online(API_TAREFAS):
         return Response("API offline", status=502)
