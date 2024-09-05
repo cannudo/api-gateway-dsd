@@ -10,6 +10,7 @@ async def echo(websocket):
 async def manipulador(canal):
     async for mensagem in canal:
         print(mensagem)
+        await canal.send("Recebido")
 
 async def main():
     async with serve(manipulador, "localhost", 8765):
