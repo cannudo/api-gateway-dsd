@@ -1,4 +1,5 @@
 ### Contributors
+<!-- The list of contributors will be added here by GitHub Actions -->
 
 
 # api-gateway-dsd
