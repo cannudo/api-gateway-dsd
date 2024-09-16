@@ -1,5 +1,7 @@
 name: Add contributors
-on: push
+on:
+  schedule:
+    - cron:  '20 20 * * *'
 # push:
 #   branches:
 #     - master
