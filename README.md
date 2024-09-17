@@ -141,5 +141,5 @@ npm run dev
 ```
 
 ### Desenho arquitetural
+![desenho arquitetural](https://github.com/user-attachments/assets/920ffb32-3102-4c26-9727-823f92a2202a)
 
-<!-- imagem -->
