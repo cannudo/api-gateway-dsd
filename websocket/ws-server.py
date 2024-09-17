@@ -11,9 +11,8 @@ async def manipulador(canal):
     clientes_conectados.add(canal)
     try:
         async for mensagem in canal:
-            print(mensagem)
             # Enviar a mensagem recebida para todos os clientes conectados
-            await asyncio.gather(*[cliente.send(mensagem) for cliente in clientes_conectados])
+            await asyncio.gather(*[cliente.send("Nova notificação recebida!") for cliente in clientes_conectados])
     except:
         pass
     finally:
